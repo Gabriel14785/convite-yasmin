@@ -10,7 +10,8 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Yasmin • 15 anos — Noite Estrelada">
   <meta property="og:description" content="04 de outubro às 18h. Venha celebrar essa noite mágica!">
-  <meta property="og:image" content="https://convite-yasmin-psi.vercel.app/assets/og-image.png">
+  <meta property="og:image" content="https://convite-yasmin-psi.vercel.app/assets/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://convite-yasmin-psi.vercel.app">
@@ -20,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Yasmin • 15 anos — Noite Estrelada">
   <meta name="twitter:description" content="04 de outubro às 18h. Venha celebrar essa noite mágica!">
-  <meta name="twitter:image" content="https://convite-yasmin-psi.vercel.app/assets/og-image.png">
+  <meta name="twitter:image" content="https://convite-yasmin-psi.vercel.app/assets/og-image.jpg">
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
@@ -64,39 +65,100 @@
         <div class="envelope" id="envelope">
           <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" class="envelope-svg">
             <defs>
+              <!-- Corpo: azul bebê (Opção B) com brilho acetinado -->
               <linearGradient id="envBody" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#1E3A6F"/>
-                <stop offset="100%" stop-color="#0B1A3A"/>
+                <stop offset="0%" stop-color="#9CC5E8"/>
+                <stop offset="45%" stop-color="#7BAFD8"/>
+                <stop offset="100%" stop-color="#6FA0CF"/>
               </linearGradient>
+              <!-- Highlight metálico diagonal -->
+              <linearGradient id="envBodyShine" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45"/>
+                <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0"/>
+                <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+              </linearGradient>
+              <!-- Aba: azul bebê mais clara com luz no topo -->
               <linearGradient id="envFlap" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#5B7FBF"/>
-                <stop offset="100%" stop-color="#1E3A6F"/>
+                <stop offset="0%" stop-color="#DCEBFA"/>
+                <stop offset="50%" stop-color="#B8D6EF"/>
+                <stop offset="100%" stop-color="#8FBADB"/>
               </linearGradient>
-              <radialGradient id="sealGrad" cx="50%" cy="50%" r="50%">
+              <!-- Linha de luz no topo da aba (highlight 3D) -->
+              <linearGradient id="flapHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+              </linearGradient>
+              <!-- Selo: prata metálico com brilho -->
+              <radialGradient id="sealGrad" cx="35%" cy="30%" r="65%">
                 <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="60%" stop-color="#C9D4E8"/>
-                <stop offset="100%" stop-color="#8FA3C4"/>
+                <stop offset="45%" stop-color="#E8F0FB"/>
+                <stop offset="80%" stop-color="#B6C8E0"/>
+                <stop offset="100%" stop-color="#7E94B5"/>
               </radialGradient>
-              <filter id="envShadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
-                <feOffset dx="0" dy="4" result="offsetblur"/>
-                <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+              <!-- Glow dourado ao redor do selo -->
+              <radialGradient id="sealGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFE9A8" stop-opacity="0.6"/>
+                <stop offset="60%" stop-color="#FFE9A8" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#FFE9A8" stop-opacity="0"/>
+              </radialGradient>
+              <!-- Sombra mais suave e realista -->
+              <filter id="envShadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+                <feOffset dx="0" dy="6" result="offsetblur"/>
+                <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+                <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <!-- Sombra interna do corpo (profundidade) -->
+              <filter id="envInner" x="-10%" y="-10%" width="120%" height="120%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+                <feOffset dx="0" dy="1"/>
+                <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+                <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <!-- Brilho do selo -->
+              <filter id="sealShine" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="1.2" result="blur"/>
                 <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
 
             <g filter="url(#envShadow)">
+              <!-- Corpo do envelope -->
               <rect x="20" y="60" width="280" height="150" rx="8" ry="8"
-                    fill="url(#envBody)" stroke="#C9D4E8" stroke-width="2"/>
-              <path d="M 20 60 L 160 145 L 300 60" 
-                    fill="none" stroke="#C9D4E8" stroke-width="1.5" opacity="0.5"/>
+                    fill="url(#envBody)" stroke="#FFFFFF" stroke-width="2"/>
+              <!-- Brilho metálico diagonal sobre o corpo -->
+              <rect x="20" y="60" width="280" height="150" rx="8" ry="8"
+                    fill="url(#envBodyShine)"/>
+              <!-- Borda interna (moldura discreta) -->
+              <rect x="28" y="68" width="264" height="134" rx="5" ry="5"
+                    fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.35"/>
+              <!-- Linha central da aba fechada (efeito relevo) -->
+              <path d="M 20 60 L 160 145 L 300 60"
+                    fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.4"/>
+              <path d="M 20 62 L 160 147 L 300 62"
+                    fill="none" stroke="#3D6FA0" stroke-width="0.8" opacity="0.25"/>
+
+              <!-- Aba do envelope -->
               <g class="envelope-flap-svg" id="envelopeFlap">
-                <path d="M 20 60 L 160 145 L 300 60 Z" 
-                      fill="url(#envFlap)" stroke="#C9D4E8" stroke-width="2"/>
+                <path d="M 20 60 L 160 145 L 300 60 Z"
+                      fill="url(#envFlap)" stroke="#FFFFFF" stroke-width="2"/>
+                <!-- Highlight metálico no topo da aba -->
+                <path d="M 30 62 L 160 142 L 290 62"
+                      fill="none" stroke="url(#flapHighlight)" stroke-width="3" opacity="0.7"/>
               </g>
-              <g class="envelope-seal-svg" id="envelopeSeal">
+
+              <!-- Glow dourado atrás do selo -->
+              <circle cx="160" cy="110" r="50" fill="url(#sealGlow)"/>
+
+              <!-- Selo metálico com estrela -->
+              <g class="envelope-seal-svg" id="envelopeSeal" filter="url(#sealShine)">
                 <circle cx="160" cy="110" r="32" fill="url(#sealGrad)" stroke="#FFFFFF" stroke-width="2"/>
-                <text x="160" y="120" text-anchor="middle" font-size="28" fill="#0B1A3A">✨</text>
+                <circle cx="160" cy="110" r="28" fill="none" stroke="#8FA3C4" stroke-width="0.8" opacity="0.5"/>
+                <text x="160" y="122" text-anchor="middle" font-size="32" fill="#1E3A6F" font-weight="bold">&#9733;</text>
+                <!-- Pequenos sparkles no selo -->
+                <circle cx="148" cy="98" r="1.2" fill="#FFFFFF" opacity="0.9"/>
+                <circle cx="174" cy="100" r="0.9" fill="#FFFFFF" opacity="0.7"/>
+                <circle cx="170" cy="124" r="0.7" fill="#FFFFFF" opacity="0.6"/>
               </g>
             </g>
           </svg>
