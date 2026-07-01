@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0B1A3A">
+  <title>Yasmin • 15 anos • Noite Estrelada</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <!-- Estrelas de fundo -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Player de música flutuante -->
+  <div class="music-player" id="musicPlayer" style="display: none;">
+    <button class="music-btn" id="musicBtn" aria-label="Tocar/pausar música">
+      <span class="music-icon" id="musicIcon">&#9654;</span>
+    </button>
+    <div class="music-bars" id="musicBars">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/musica.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Dots de navegação -->
+  <div class="dots" id="dots">
+    <div class="dot active" data-screen="0"></div>
+    <div class="dot" data-screen="1"></div>
+    <div class="dot" data-screen="2"></div>
+    <div class="dot" data-screen="3"></div>
+    <div class="dot" data-screen="4"></div>
+    <div class="dot" data-screen="5"></div>
+  </div>
+
+  <div class="app">
+
+    <!-- TELA 1 — CAPA COM ENVELOPE -->
+    <section class="screen active" id="screen-0">
+      <h1 class="cover-title">Yasmin</h1>
+      <p class="cover-subtitle">— XV anos —</p>
+
+      <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="envelope">
+          <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" class="envelope-svg">
+            <defs>
+              <linearGradient id="envBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1E3A6F"/>
+                <stop offset="100%" stop-color="#0B1A3A"/>
+              </linearGradient>
+              <linearGradient id="envFlap" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#5B7FBF"/>
+                <stop offset="100%" stop-color="#1E3A6F"/>
+              </linearGradient>
+              <radialGradient id="sealGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="60%" stop-color="#C9D4E8"/>
+                <stop offset="100%" stop-color="#8FA3C4"/>
+              </radialGradient>
+              <filter id="envShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+                <feOffset dx="0" dy="4" result="offsetblur"/>
+                <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+                <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <g filter="url(#envShadow)">
+              <rect x="20" y="60" width="280" height="150" rx="8" ry="8"
+                    fill="url(#envBody)" stroke="#C9D4E8" stroke-width="2"/>
+              <path d="M 20 60 L 160 145 L 300 60" 
+                    fill="none" stroke="#C9D4E8" stroke-width="1.5" opacity="0.5"/>
+              <g class="envelope-flap-svg" id="envelopeFlap">
+                <path d="M 20 60 L 160 145 L 300 60 Z" 
+                      fill="url(#envFlap)" stroke="#C9D4E8" stroke-width="2"/>
+              </g>
+              <g class="envelope-seal-svg" id="envelopeSeal">
+                <circle cx="160" cy="110" r="32" fill="url(#sealGrad)" stroke="#FFFFFF" stroke-width="2"/>
+                <text x="160" y="120" text-anchor="middle" font-size="28" fill="#0B1A3A">✨</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <p class="tap-hint">Toque para abrir</p>
+    </section>
+
+    <!-- TELA 2 — HUB CENTRAL (foto + countdown + atalhos) -->
+    <section class="screen" id="screen-1">
+      <h1 class="hero-name">Yasmin</h1>
+      <p class="hero-idade">15 &bull; ANOS</p>
+
+      <div class="photo-frame">
+        <img src="assets/foto-yasmin.jpg" alt="Yasmin 15 anos">
+      </div>
+
+      <p class="section-text mt-2">
+        É com imenso prazer que convidamos você<br>
+        para fazer parte desse momento especial.
+      </p>
+
+      <!-- Countdown compacto -->
+      <div class="event-card mt-2">
+        <div class="event-date">04 &middot; OUTUBRO</div>
+        <div class="divider"></div>
+        <div class="event-time">&Agrave;S 18H</div>
+        <div class="divider"></div>
+        <div class="section-text" style="font-size: 0.9rem;"><em>Tema: Noite Estrelada</em></div>
+
+        <div class="countdown" id="countdown">
+          <div class="countdown-item">
+            <span class="countdown-number" id="cd-days">00</span>
+            <span class="countdown-label">Dias</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="cd-hours">00</span>
+            <span class="countdown-label">Horas</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="cd-min">00</span>
+            <span class="countdown-label">Min</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="cd-sec">00</span>
+            <span class="countdown-label">Seg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Atalhos -->
+      <div class="shortcuts mt-3">
+        <button class="shortcut" data-next="2">
+          <span class="shortcut-icon">&#128205;</span>
+          <span class="shortcut-text">Localização</span>
+          <span class="shortcut-arrow">&rarr;</span>
+        </button>
+        <button class="shortcut" data-next="3">
+          <span class="shortcut-icon">&#128087;</span>
+          <span class="shortcut-text">Dress Code</span>
+          <span class="shortcut-arrow">&rarr;</span>
+        </button>
+        <button class="shortcut" data-next="4">
+          <span class="shortcut-icon">&#127873;</span>
+          <span class="shortcut-text">PIX</span>
+          <span class="shortcut-arrow">&rarr;</span>
+        </button>
+        <button class="shortcut shortcut-highlight" data-next="5">
+          <span class="shortcut-icon">&#10003;</span>
+          <span class="shortcut-text">Confirmar Presença</span>
+          <span class="shortcut-arrow">&rarr;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- TELA 3 — LOCAL -->
+    <section class="screen" id="screen-2">
+      <h2 class="section-title">Local</h2>
+
+      <div class="map-card">
+        <div class="map-icon">&#128205;</div>
+        <p class="section-text mb-1">Venha celebrar conosco!</p>
+        <p class="section-text" style="font-size: 0.95rem; opacity: 0.9;">
+          Toque no botão abaixo para abrir o local no Google Maps
+        </p>
+
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&bgcolor=FFFFFF&color=0B1A3A&qzone=2&data=https%3A%2F%2Fshare.google%2FhNdfJwJjUTVqLojBJ"
+             alt="QR Code do local"
+             class="qr-code"
+             onerror="this.style.display='none'">
+
+        <a href="https://share.google/hNdfJwJjUTVqLojBJ"
+           target="_blank"
+           rel="noopener"
+           class="btn btn-primary mt-2">
+          &#128205; Abrir no Maps
+        </a>
+      </div>
+
+      <button class="btn btn-nav" data-next="1">&#8592; Voltar</button>
+    </section>
+
+    <!-- TELA 4 — DRESS CODE -->
+    <section class="screen" id="screen-3">
+      <h2 class="section-title">Dress Code</h2>
+
+      <div class="dresscode-tabs">
+        <button class="dresscode-tab active" id="tabMulheres" data-gender="mulheres">&#9792; Mulheres</button>
+        <button class="dresscode-tab" id="tabHomens" data-gender="homens">&#9794; Homens</button>
+      </div>
+
+      <!-- Mulheres -->
+      <div class="dresscode-panel active" id="panelMulheres">
+        <div class="event-card mb-1">
+          <p class="section-text" style="margin: 0;">
+            <strong>Traje:</strong> Elegante
+          </p>
+        </div>
+        <p class="section-text mt-2" style="font-size: 0.95rem;">
+          Vestidos elegantes ou conjuntos sociais.
+        </p>
+      </div>
+
+      <!-- Homens -->
+      <div class="dresscode-panel" id="panelHomens">
+        <div class="event-card mb-1">
+          <p class="section-text" style="margin: 0;">
+            <strong>Traje:</strong> Esporte Fino
+          </p>
+        </div>
+        <p class="section-text mt-2" style="font-size: 0.95rem;">
+          Camisa social, calça de sarja ou vestes harmônicas.
+        </p>
+      </div>
+
+      <div class="dresscode-warning mt-3">
+        <p class="section-text" style="font-size: 0.9rem; color: #ffaaaa; margin: 0;">
+          &#9888; Evitar as cores do tema da festa:<br>
+          <strong>Azul, Branco e Prata</strong> (cores reservadas pra aniversariante).
+        </p>
+      </div>
+
+      <button class="btn btn-nav" data-next="1">&#8592; Voltar</button>
+    </section>
+
+<!-- TELA 5 — PRESENTES + PIX -->
+    <section class="screen" id="screen-4">
+      <h2 class="section-title">Presentes</h2>
+
+      <p class="section-text mb-2">
+        Sua presença já é o maior presente!<br>
+        Mas se desejar presentear, ficaremos felizes em receber<br>
+        <strong>via PIX de presente de aniversário.</strong>
+      </p>
+
+      <div class="pix-box">
+        <p class="pix-label">Pix de Presente</p>
+        <p class="pix-instructions">CPF - Banco Inter</p>
+        <p class="pix-key" id="pixKey">44792995809</p>
+        <button class="btn btn-primary" id="copyPix">
+          &#128203; Copiar PIX
+        </button>
+        <div class="copy-feedback" id="copyFeedback">&#10003; Chave copiada!</div>
+      </div>
+
+      <button class="btn btn-nav" data-next="1">&#8592; Voltar</button>
+    </section>
+
+    <!-- TELA 6 — CONFIRMAÇÃO -->
+    <section class="screen" id="screen-5">
+      <h2 class="section-title">Confirme sua Presença</h2>
+
+      <p class="section-text mb-2">
+        Sua presença é muito importante!<br>
+        Contamos com você para tornar essa noite inesquecível.
+      </p>
+
+      <form class="form-card" id="confirmForm">
+        <div class="form-group">
+          <label class="form-label" for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" class="form-input" placeholder="Seu nome" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="telefone">Telefone</label>
+          <input type="tel" id="telefone" name="telefone" class="form-input" placeholder="(00) 00000-0000" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="mensagem">Mensagem (opcional)</label>
+          <textarea id="mensagem" name="mensagem" class="form-input" placeholder="Deixe um recado para a Yasmin..."></textarea>
+        </div>
+
+        <div class="form-message" id="formMessage"></div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          &#10003; Confirmar Presença
+        </button>
+      </form>
+
+      <div id="thanksArea" style="display: none;" class="thanks-screen mt-3">
+        <div class="thanks-icon">&#10024;</div>
+        <h2 class="section-title">Presença Confirmada!</h2>
+        <p class="thanks-message">
+          Obrigado por confirmar!<br>
+          Nos vemos dia <strong>04 de outubro</strong><br>
+          para celebrar esse momento único. &#127775;
+        </p>
+        <button class="btn btn-nav" data-next="1">&#8592; Voltar ao início</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
