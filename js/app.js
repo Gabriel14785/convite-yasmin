@@ -77,13 +77,11 @@ function triggerStarWave() {
   const container = document.getElementById('stars');
   if (!container) return;
 
-  // Basta adicionar uma classe no container — o CSS faz a onda
-  // Muito mais leve que iterar 700 estrelas com setTimeout
   container.classList.add('wave-active');
 
   setTimeout(() => {
     container.classList.remove('wave-active');
-  }, 1500);
+  }, 800);
 }
 
 // === NAVEGAÇÃO ENTRE TELAS ===
@@ -102,9 +100,12 @@ function goToScreen(index) {
   const current = document.getElementById(`screen-${currentScreen}`);
   const next = document.getElementById(`screen-${index}`);
 
+  // Reduz densidade de estrelas em telas internas
+  document.body.classList.toggle('inner-screen', index > 0);
+
   if (current) current.classList.add('leaving');
 
-  // Exit curto (~180ms) - skill: exit shorter than enter
+  // Exit curto (~120ms) - mais fluido
   setTimeout(() => {
     if (current) {
       current.classList.remove('active', 'leaving');
@@ -113,13 +114,15 @@ function goToScreen(index) {
       next.classList.remove('entering');
       void next.offsetWidth;
       next.classList.add('active', 'entering');
-      setTimeout(() => next.classList.remove('entering'), 900);
+      setTimeout(() => next.classList.remove('entering'), 500);
     }
     currentScreen = index;
     updateDots();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Reduz estrelas em telas internas (performance)
+    document.body.classList.toggle('inner-screen', index > 0);
     isTransitioning = false;
-  }, 180);
+  }, 120);
 }
 
 function updateDots() {
@@ -179,7 +182,7 @@ if (envelopeWrapper) {
     if (isOpening) return;
     isOpening = true;
 
-    // Etapa 1: shake leve (0-180ms)
+    // Etapa 1: shake rápido (0-150ms)
     envelope.classList.add('shaking');
     if (tapHint) tapHint.style.opacity = '0';
 
@@ -187,34 +190,34 @@ if (envelopeWrapper) {
     if (musicPlayer) musicPlayer.style.display = 'flex';
     playMusic();
 
-    // Etapa 2: abre o envelope (180ms)
+    // Etapa 2: abre o envelope (150ms)
     setTimeout(() => {
       envelope.classList.remove('shaking');
       envelope.classList.add('opened');
-    }, 180);
+    }, 150);
 
-    // Etapa 3: onda de brilho nas estrelas (800ms)
+    // Etapa 3: onda de brilho nas estrelas (500ms - mais cedo pra ser mais fluido)
     setTimeout(() => {
       triggerStarWave();
-    }, 800);
+    }, 500);
 
-    // Etapa 4: zoom out suave do envelope (1200ms)
+    // Etapa 4: zoom out do envelope (900ms)
     setTimeout(() => {
       envelopeWrapper.classList.add('zoom-out');
-    }, 1200);
+    }, 900);
 
-    // Etapa 5: troca de tela com fade (1500ms)
+    // Etapa 5: troca de tela (1100ms)
     setTimeout(() => {
       goToScreen(1);
-    }, 1500);
+    }, 1100);
 
-    // Reset completo (2400ms)
+    // Reset completo (1800ms)
     setTimeout(() => {
       envelope.classList.remove('opened', 'shaking');
       envelopeWrapper.classList.remove('zoom-out');
       if (tapHint) tapHint.style.opacity = '';
       isOpening = false;
-    }, 2400);
+    }, 1800);
   });
 }
 
