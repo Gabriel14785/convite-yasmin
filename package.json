@@ -1,0 +1,13 @@
+{
+  "name": "convite-yasmin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Convite digital de 15 anos da Yasmin",
+  "scripts": {
+    "og": "node scripts/generate-og.js",
+    "dev": "node scripts/dev-server.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.2.1"
+  }
+}
